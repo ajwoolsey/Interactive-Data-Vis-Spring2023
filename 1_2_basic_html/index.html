@@ -5,15 +5,87 @@
   <title>Interactive Data Visualization Tutorial</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
   <link rel="stylesheet" href="./style.css">
+
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <h3>Tutorial Assignment: 1_2_basic_html </h3>
-  <table>
+  <h1>Ebird Checklist</h1>
+  <h4>Date: Saturday, Dec 24th </h4>
+  <h4>Location: Peaceful Waters Sanctuary, Palm Beach Country, Florida</h4>
+  <h5><em>SVG path commands calculated using :<a href="https://yqnn.github.io/svg-path-editor/">SvgPathEditor</a></em></h5>
+  <h5><a href="https://ebird.org/checklist/S124530936">Ebird Checklist Link</a></h5>
+
+  
+
+<table class="grouptable">
+  <thead>
+    <tr><th>Bird groups</th>
+    </tr>
+  </thead>
+  <tbody class="groupsection">
+  <th>
+    <div style="width:100px;height:50px;margin:10px;border:1px;text-align: center ;background-color: blueviolet"><strong>Waterfowl</strong></div>
+    </th>
+    <th>
+      <div style="width:100px;height:50px;margin:10px;border:1px;text-align: center;background-color: lightblue"><strong>Shorebird</strong></div>
+      </th>
+    <th>
+      <div style="width:100px;height:50px;margin:10px;border:1px;text-align: center; ;background-color: red">Wading-Birds</div>
+   </th>
+   <th>
+    <div style="width:100px;height:50px;margin:10px;border:1px; ;background-color: yellow">Raptors</div>
+    </th>
+  </tr>
+</tbody>
+</table>
+ 
+<p>                                                                                           </p>
+
+  <table class="counttable">
     <!-- Add your table data here -->
-  </table>
-  <svg>
-    <!-- Add your rectangles in here -->
-  </svg>
+    <!--tr is table row, th is table header-->
+  <tr class="countsectionname">
+      <th class="Waterfowl">Egyptian Goose</th>
+      <th class="Shorebird">Sora</th>
+      <th class="Waterfowl">Common Gallinule</th>
+      <th class="Waterfowl">Purple Gallinule</th>
+      <th class="Wading-Birds">Great Egret</th>
+      <th class="Wading-Birds">Snowy Egret</th>
+      <th class="Wading-Birds">Little Blue Heron</th>
+      <th class="Wading-Birds">Tricolored Heron</th>
+      <th class="Wading-Birds">Green Heron</th>
+      <th class="Wading-Birds">White Ibis</th>
+      <th class="Wading-Birds">Glossy Ibis</th>
+      <th class="Raptors">Turkey Vulture </th>
+  </tr>
+  <tr class="countsectioncount">
+      <th>6</th>
+      <th>2</th>
+      <th>11</th>
+      <th>1</th>
+      <th>1</th>
+      <th>1</th>
+      <th>2</th>
+      <th>1</th>
+      <th>2</th>
+      <th>1</th>
+      <th>2</th>
+      <th>5</th>
+  </tr>
+</table>
+  
+    <svg viewBox="-11 -7 100 42.4" xmlns="http://www.w3.org/2000/svg">
+    <g
+      fill="brown">
+      <path
+        d="M 0 0 
+        V 0 
+        M 0 0 
+        A 1 1 0 0 0 11 0 
+        S 1.3333 -1.3333 2 -2 
+        V -2 
+        A 1 1 0 0 0 -2 -2 
+        L -3 0" />
+      </g>
+      </svg>
 </body>
 </html>
