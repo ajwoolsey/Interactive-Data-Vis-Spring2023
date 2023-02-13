@@ -1,15 +1,28 @@
-
-<!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title>Interactive Data Visualization Tutorial</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <h1>Hello World!</h1>
-  <h3>Tutorial Assignment: 1_3_intro_to_js </h3>
-  <!-- add any HTML you might need here, like a button or a div -->
-  <script src="main.js"></script>
+<!DOCTYPE HTML>
+<html>
+    <meta charset="utf-8">
+    <title>
+      Count when button is clicked
+    </title>
+<h1>Please click button! Refresh the page when you would like to start again</h1>
+    <body>
+    <!--Creates button "onlick event" with function as well as button id to refer to later-->
+    <!--We set 0 as what shows during onlick event as that is what we want to show before clicking-->
+    <!--Defining the function here-->
+   <button id="button"
+   onclick="clickfunction()">0</button>
+ 
+    
+    <script>
+      //Inspired by the following tutorial: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onclick
+      //Declaring count at 1 instead of 0 because when you click it should display 1 not 0.
+      //We use var instead of let because var is function scoped and let is limited by block//
+      var count = 1;
+    function clickfunction() {
+    //HTML DOM Element innerHTML returns the innerHTML content of element, in this case the count number of button id "test"
+    //++ will count by 1
+      document.getElementById("button").innerHTML = count++;
+    }
+    </script>
 </body>
 </html>
