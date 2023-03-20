@@ -15,7 +15,7 @@ d3.csv("../data/agegenderbmi.csv", d3.autoType)
     /* SCALES */
     //x scale
     const xScale= d3.scaleLinear()
-    //BMI, x axis
+    //Age, x axis
     .domain([0, 50])
     .range([60, 1000])
     
@@ -83,11 +83,18 @@ d3.csv("../data/agegenderbmi.csv", d3.autoType)
       .style("fill", function (d) { return color(d.Sex) } )
 
 //Axis titles
-svg.append("text")
-    .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + margin.top + 20)
-    .text("X axis title");
+//x axis
+var circle= svg.append('text')
+.attr('x', 375)
+.attr('y', 540)
+.text("Age")
+
+var circle= svg.append('text')
+.attr('x', 0)
+.attr('y', 100)
+.text("BMI")
+//degrees, x axis, y axis percentages
+.attr('transform', 'rotate(270,50,120)')
 
     
   });
