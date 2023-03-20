@@ -1,6 +1,6 @@
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 60, right: 60 }
+  margin = { top: 20, bottom: 50, left: 100, right: 60 }
 
 
 
@@ -45,12 +45,23 @@ d3.csv('../data/collisioncount.csv', d => {
 
  svg.append("text")
     .attr("class", "x label")
-    .attr("x", 600)
+    .attr("x", 400)
     .attr("y", height - 6)
     .attr("font-weight", "900")
     .attr("font-size", "24")
     .style("font", "20px times")
     .text("Year");
+
+  svg.append("text")
+  var circle= svg.append('text')
+  .attr('x', -100)
+  .attr('y', 100)
+  .text("Collision Count")
+  //degrees, x axis, y axis percentages
+  .attr('transform', 'rotate(270,70,120)')
+  .attr("font-weight", "900")
+    .attr("font-size", "24")
+    .style("font", "20px times")
 
   //LINE GENERATOR FUNCTION
   const lineGen = d3.line()
