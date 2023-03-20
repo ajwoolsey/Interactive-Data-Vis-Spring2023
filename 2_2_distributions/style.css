@@ -13,7 +13,10 @@ h3 {
   font-size: 2em;
   margin: 0.25em 0;
 }
-
+.container
+{
+  padding: 60px
+}
 p {
   font-size: 1em;
 }
