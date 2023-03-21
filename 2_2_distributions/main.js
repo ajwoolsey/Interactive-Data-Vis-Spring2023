@@ -86,7 +86,7 @@ d3.csv("../data/agegenderbmi.csv", d3.autoType)
 //x axis
 var circle= svg.append('text')
 .attr('x', 375)
-.attr('y', 560)
+.attr('y', 500)
 .text("Age")
 
 var circle= svg.append('text')
