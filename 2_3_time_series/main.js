@@ -29,6 +29,7 @@ d3.csv('../data/collisioncount.csv', d => {
     .append("svg")
     .attr("width", width)
     .attr("height", height)
+    .attr('margin', 50)
 
   // BUILD AND CALL AXES
   const xAxis = d3.axisBottom(xScale)
@@ -39,7 +40,7 @@ d3.csv('../data/collisioncount.csv', d => {
 
  const yAxis = d3.axisLeft(yScale)
  svg.append("g")
- .attr("transform", `translate(${margin.left},0)`)
+ .attr("transform", `translate(58,0)`)
  .style("font", "14px times")
  .call(yAxis);
 
@@ -55,10 +56,10 @@ d3.csv('../data/collisioncount.csv', d => {
   svg.append("text")
   var circle= svg.append('text')
   .attr('x', -100)
-  .attr('y', 100)
+  .attr('y', 98)
   .text("Collision Count")
   //degrees, x axis, y axis percentages
-  .attr('transform', 'rotate(270,70,120)')
+  .attr('transform', 'rotate(270,35,120)')
   .attr("font-weight", "900")
     .attr("font-size", "24")
     .style("font", "20px times")
