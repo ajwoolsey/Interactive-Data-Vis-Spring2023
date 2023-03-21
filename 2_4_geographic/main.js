@@ -9,7 +9,7 @@ const width = window.innerWidth * 0.9,
  * */
 Promise.all([
   d3.json("../data/usState.json"),
-  d3.csv("../data/USHeatExtremes.csv", d3.autoType),
+  d3.csv("../data/usHeatExtremes.csv", d3.autoType),
 ]).then(([geojson, heat]) => {
   
   // create an svg element in our main `d3-container` element
