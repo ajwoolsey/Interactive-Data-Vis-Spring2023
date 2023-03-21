@@ -1,6 +1,6 @@
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 100, right: 60 }
+  margin = { top: 20, bottom: 50, left: 150, right: 60 }
 
 
 
