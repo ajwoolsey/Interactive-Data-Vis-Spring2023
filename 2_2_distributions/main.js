@@ -1,7 +1,7 @@
 /* CONSTANTS AND GLOBALS */
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin= {top: 20, bottom: 60, left: 60, right: 40},
+   margin = { top: 20, bottom: 60, left: 60, right: 40 },
   radius = 5;
 //   height = ,
 //   margin = ,
@@ -16,7 +16,7 @@ d3.csv("../data/agegenderbmi.csv", d3.autoType)
     //x scale
     const xScale= d3.scaleLinear()
     //Age, x axis
-    .domain([0, 50])
+    .domain([0, 55])
     .range([60, 1000])
     
     //y scale BMI
@@ -86,12 +86,12 @@ d3.csv("../data/agegenderbmi.csv", d3.autoType)
 //x axis
 var circle= svg.append('text')
 .attr('x', 375)
-.attr('y', 540)
+.attr('y', 560)
 .text("Age")
 
 var circle= svg.append('text')
 .attr('x', 0)
-.attr('y', 100)
+.attr('y', 70)
 .text("BMI")
 //degrees, x axis, y axis percentages
 .attr('transform', 'rotate(270,50,120)')
