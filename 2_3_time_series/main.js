@@ -29,7 +29,6 @@ d3.csv('../data/collisioncount.csv', d => {
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr('margin', 50)
 
   // BUILD AND CALL AXES
   const xAxis = d3.axisBottom(xScale)
