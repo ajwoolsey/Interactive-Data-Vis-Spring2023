@@ -68,8 +68,8 @@ if (showBikePath) {
     .data(BikeLanes.features)
     .join("path")
     .attr("class", 'lanes')
-    .attr("stroke", "red")
-    .attr("opacity", .9)
+    .attr('stroke-width', 1.5)
+    .attr("stroke", "#d487a2")
     .attr("fill", "transparent")
     .attr("d", dcpath)
 }
@@ -81,7 +81,6 @@ if (showLightRail) {
     .attr("class", 'lines')
     //seeing how data organizes metro lines using i as index
     .attr("stroke", 'white')
-    .attr('opacity', .9)
     .attr("fill", "transparent")
     .attr('stroke-width', 2)
     .attr("d", dcpath);
@@ -93,7 +92,7 @@ dcsvg.selectAll("circle.MetroBus")
     .data(MetroBus)
     .join("circle")
     .attr("r", 1)
-    .attr("fill", "#ffae1d")
+    .attr("fill", "#eed467")
     .attr("transform", d=> {
         // use our projection to go from lat/long => x/y
         const coords = dcprojection([d.BSTP_LON, d.BSTP_LAT])
@@ -110,9 +109,9 @@ dcsvg.selectAll("circle.MetroBus")
     .data(DCNationalParks.features)
     .join("path")
     .attr("class", 'parks')
-    .attr("stroke", "green")
-    .attr("opacity", .9)
-    .attr('stroke-width', 1)
+    .attr("stroke", "#7fb47d")
+    .attr("opacity", .8)
+    .attr('stroke-width', 1.75)
     .attr("fill", "transparent")
     .attr("d", dcpath);
   }

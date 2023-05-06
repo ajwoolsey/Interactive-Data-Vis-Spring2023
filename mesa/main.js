@@ -349,7 +349,7 @@ headersvg= d3
 /**
  * LOAD DATA
  * Using a Promise.all([]), we can load more than one dataset at a time
- * How to load and then(geojson) for multiple datasets?
+ * loading geographic data for Mesa
  * */
 Promise.all([
   d3.json("../data/MesaCensusTracts.json"),
@@ -358,13 +358,11 @@ Promise.all([
   d3.csv("../data/Valley_Metro_Bus_Stops.csv", d3.autoType),
   d3.csv("../data/MesaParks_Locations_And_Amenities.csv", d3.autoType),
 ]).then(([geojson, BikePaths, RailLine, ValleyBus, MesaParks]) => {
-  // create an svg element for ParkScore WalkScore scatterplot
+  
 
-
+// create an svg element for ParkScore WalkScore scatterplot
   svg = d3
     .select("#mesa")
-    //Supposed to clear anything in "mesa"
-    // .selectAll('*').remove()
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -378,7 +376,7 @@ Promise.all([
 
   // SPECIFY PROJECTION
   // a projection maps from lat/long -> x/y values
-  // so it works a lot like a scale!
+  // so it works a lot like a scale
   const projection = d3.geoAlbersUsa()
     .fitSize([
       width - margin.left - margin.right,
@@ -388,47 +386,40 @@ Promise.all([
   // DEFINE PATH FUNCTION
   const path = d3.geoPath(projection)
 
-  //variable for tooltip
-  // var tooltip = d3.select("body")
-  // .append("div")
-  // .style("position", "absolute")
-  // .style("z-index", "10")
-  // .style("visibility", "hidden")
-  // .text("a simple tooltip");
 
-
-//draw path for bike lanes
+//Draw path for Mesa Bike Lanes
 console.log(showBikePath)
 if(showBikePath) {
   svg.selectAll("path.lanes")
   .data(BikePaths.features)
   .join("path")
   .attr("class", 'lanes')
-  .attr("stroke", 'red')
+  .attr("stroke", '#d487a2')
+  .attr('stroke-width', 1.5)
   .attr("fill", "transparent")
   .attr("d", path)
 }
 
 
 
-//draw path for light rail
+//Draw path for Mesa Light Rail
 if(showLightRail) {
 svg.selectAll("path.rail")
     .data(RailLine.features)
     .join("path")
     .attr("class", 'rail')
     .attr("stroke", 'white')
-    .attr("opacity", .9)
+    .attr("stroke-width", 2)
     .attr("fill", "transparent")
     .attr("d", path)
 }
-//Draw circle for each Mesa bus station (want hover function)
+//Draw circle for each Mesa bus station
   if(showBusStop)   {
   svg.selectAll("circle.ValleyBus")
     .data(ValleyBus)
     .join("circle")
-    .attr("r", 1)
-    .attr("fill", 'yellow')
+    .attr("r", 1.5)
+    .attr("fill", '#eed467')
     .attr("transform", d=> {
         // use our projection to go from lat/long => x/y
         const coords = projection([d.Long, d.Lat])
@@ -446,14 +437,14 @@ svg.selectAll("path.rail")
     //smallest to largest dot radius
     .range([1, 15])
 
-//Draw TREE/icon for each park, size scale for size of park
+//Size scale for each park
   if(showParks) { 
     svg.selectAll("circle.MesaParks_Locations_And_Amenities")
     .data(MesaParks)
     .join("circle")
     .attr("r", function (d) { ; return sizeScale(d.NumberofAcres)})
     .attr("opacity", 1)
-    .attr("fill", "green")
+    .attr("fill", "#7fb47d")
     .attr("transform", d=> {
         // use our projection to go from lat/long => x/y
         const coords = projection([d.Longitude, d.Latitude])
@@ -466,15 +457,6 @@ svg.selectAll("path.rail")
   })
 }
 
-
-
-
-  // //tooltip for hover function for parks
-  // .on("mouseover", function(d){
-  //   console.log(d)
-  //   return tooltip.style("visibility", "visible").text("hello");})
-	// .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-	// .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 })
 
 }
