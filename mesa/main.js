@@ -1,49 +1,39 @@
 //need separate promise for ParkScore Scatterplots, otherwise D3 gets confused
+//Note: originally was going to load transit scores from a different dataset (walkscoretransitscore),
+//turns out I didn't need it, but didn't take it out of the promise because otherwise Promise.all
+//doesn't work
 Promise.all([
   d3.csv('../data/walkscore.csv', d3.Autotype),
   d3.csv('../data/walkscoretransitscore.csv', d3.Autotype),
 ]).then(([WalkScore, TransitScore]) => {
-console.log(WalkScore)
-//Scatterplot for ParkScore Walkscore
+
+//Scatterplot for WalkScore
   const walkwidth = 400,
   walkheight = window.innerHeight * 0.9,
   walkmargin = { top: 20, bottom: 50, left: 50, right: 20 };
-
-// walksvg= d3
-// .select('#walkscore')
-// .append('svg')
-// .attr('width', 450)
-// .attr('height', 500);
 
 const xScale= d3.scaleLinear()
 //WalkScore, x axis
 .domain([0, 100])
 .range([walkmargin.left, walkwidth - 50])
 
-//y scale ParkScore
+//y scale Walkscore
 const yScale= d3.scaleLinear()
 .domain([10, 100])
 .range([walkheight - walkmargin.bottom, walkmargin.top])
 
-//axis
-//var xAxis = d3.axisBottom(xScale)
-
-//var yAxis= d3.axisLeft(yScale);
-
-
-
-/* HTML ELEMENTS */
 
 //append svg for walkscore scatterplot
 var walksvg= d3.select("#walkscore")
 .append("svg")
+
 //background color is style not attribute
 .style("background-color", "black")
 .attr("width", walkwidth)
 .attr("height", walkheight)
 .append("g")
 
-//Creating axes for ParkScore WalkScore Scatterplot
+//Creating axes for WalkScore Scatterplot
 const xAxis = d3.axisBottom(xScale)
 walksvg.append("g")
 .attr("transform", `translate(0,${walkheight - walkmargin.bottom})`)
@@ -64,7 +54,8 @@ walksvg.append("g")
 .attr('stroke', 'white')
 .select("line")
 .attr('stroke', 'white')
-// Axis titles for ParkScore/WalkScore Scatterplot
+
+// Axis titles for WalkScore Scatterplot
 // x axis
 var xLabel = walksvg.append("text")
     .text("Park Score")
@@ -80,6 +71,7 @@ var yLabel = walksvg.append("text")
     .attr('transform', 'rotate(270,-60,120)')
     .style('fill', 'white');
 
+//Data point labels for DC and Mesa WalkScore Scatterplot
 var MesaLabelWalk = walksvg.append("text")
     .text("Mesa")
     .attr("x", 115)
@@ -117,28 +109,25 @@ walksvg.append('g')
   
 
 
-//ParkScore Transit scatterplot
+//Constants for Transitscore scatterplot
       const transitwidth = 400,
       transitheight = window.innerHeight * 0.9,
       transitmargin = { top: 20, bottom: 50, left: 50, right: 20 };
   
-    //Had to take this out, creates another svg BELOW where I want it
-    // transitsvg= d3
-    // .select('#transitscore')
-    // .append('svg')
-    // .attr('width', transitwidth + 50)
-    // .attr('height', transitheight);
-  
+
+//xScale yScale for Transitscore scatterplot
+//Have to create unique xScale constants otherwise d3 gets confused//
 const transitxScale= d3.scaleLinear()
 //WalkScore, x axis
 .domain([0, 100])
 .range([transitmargin.left, transitwidth - 20])
 
-//y scale Transitscore ParkScore
+
 const transityScale= d3.scaleLinear()
 .domain([0, 100])
 .range([transitheight - transitmargin.bottom, transitmargin.top])
-  
+
+//Appending svg for Transitscore scatterplot
 var transitsvg= d3.select("#transitscore")
 .append("svg")
 //background color is style not attribute
@@ -147,7 +136,7 @@ var transitsvg= d3.select("#transitscore")
 .attr("height", transitheight)
 .append("g")
 
-//Creating axes for ParkScore WalkScore Scatterplot
+//Creating axes for TransitScore Scatterplot
 const transitxAxis = d3.axisBottom(transitxScale)
 transitsvg.append("g")
 .attr("transform", `translate(0,${transitheight - transitmargin.bottom})`)
@@ -169,8 +158,7 @@ transitsvg.append("g")
 .select("line")
 .attr('stroke', 'white');
 
-//Axes titles for ParkScore TransitScore
-  
+//Axes titles for Transitscore scatterplot
 var transitxLabel = transitsvg.append("text")
 .text("Park Score")
 .attr("x", 150)
@@ -185,7 +173,7 @@ var transityLabel = transitsvg.append("text")
 .attr('transform', 'rotate(270,-60,120)')
 .style('fill', 'white');
 
-//DC and Mesa Labels
+//DC and Mesa Labels for Transitscore scatterplot
 var MesaLabelTransit = transitsvg.append("text")
     .text("Mesa")
     .attr("x", 115)
@@ -200,6 +188,7 @@ var DCabelTransit = transitsvg.append("text")
     .style('fill', 'white')
     .style('font-size', '15px');
 
+//Appending svg for transitscore scatterplot
 transitsvg.append('g')
 .selectAll("dot")
 .data(WalkScore)
@@ -220,18 +209,13 @@ transitsvg.append('g')
       return d.CityName === 'Mesa, AZ'  ? 'red' : d.CityName === 'Washington, DC' ? 'orange' : '#009fff'
       })
   
-  //Scatterplot for BikeScore ParkScore
+//BikeScore Scatterplot
+//constants
   const bikewidth = 400,
   bikeheight = window.innerHeight * 0.9,
   bikemargin = { top: 20, bottom: 50, left: 50, right: 20 };
 
-// bikesvg= d3
-// .select('#bikescore')
-// .append('svg')
-// .attr('width', bikewidth)
-// .attr('height', bikeheight);
-
-//BikeScore ParkScore xScale
+//BikeScore Scatterplot xScale yScale
 const bikexScale= d3.scaleLinear()
 .domain([0, 100])
 .range([bikemargin.left, bikewidth - 30])
@@ -241,6 +225,7 @@ const bikeyScale= d3.scaleLinear()
 .domain([0, 100])
 .range([bikeheight -  bikemargin.bottom, bikemargin.top])
 
+//Appending svg for BikeScore scatterplot
 var bikesvg= d3.select("#bikescore")
 .append("svg")
 //background color is style not attribute
@@ -249,7 +234,8 @@ var bikesvg= d3.select("#bikescore")
 .attr("height", bikeheight)
 .append("g")
 
-// //Creating axes for ParkScore BikeScore Scatterplot
+
+// //Creating axes for BikeScore Scatterplot
 const bikexAxis = d3.axisBottom(bikexScale)
 bikesvg.append("g")
 .attr("transform", `translate(0,${bikeheight - bikemargin.bottom})`)
@@ -271,7 +257,7 @@ bikesvg.append("g")
 .select("line")
 .attr('stroke', 'white');
 
-// //Axes titles for ParkScore BikeScore
+// //Axes titles for BikeScore
 
 var bikexLabel = bikesvg.append("text")
 .text("Park Score")
@@ -279,7 +265,7 @@ var bikexLabel = bikesvg.append("text")
 .attr("y", 665)
 .style('fill', 'white');
 
-// //y axis for bikescore
+
 var bikeyLabel = bikesvg.append("text")
 .text("Bike Score")
 .attr("x", -300)
@@ -287,7 +273,7 @@ var bikeyLabel = bikesvg.append("text")
 .attr('transform', 'rotate(270,-60,120)')
 .style('fill', 'white');
 
-//DC and Mesa Labels
+//DC and Mesa Labels for BikeScore scatterplot
 var MesaLabelTransit = bikesvg.append("text")
     .text("Mesa")
     .attr("x", 115)
@@ -335,7 +321,7 @@ function mesaInit() {
   //Clear out and start over, prevents layers of SVGs to exist
   
 
-/* CONSTANTS AND GLOBALS */
+
 //constants for Mesa Map
 const width = window.innerWidth * 0.45,
   height = window.innerHeight * 0.7,
@@ -361,6 +347,7 @@ Promise.all([
   
 
 // create an svg element for ParkScore WalkScore scatterplot
+//"svg" is for mesa map only, every other svg has to be unique
   svg = d3
     .select("#mesa")
     .append("svg")
@@ -388,13 +375,13 @@ Promise.all([
 
 
 //Draw path for Mesa Bike Lanes
-console.log(showBikePath)
+
 if(showBikePath) {
   svg.selectAll("path.lanes")
   .data(BikePaths.features)
   .join("path")
   .attr("class", 'lanes')
-  .attr("stroke", '#d487a2')
+  .attr("stroke", '#e75480')
   .attr('stroke-width', 1.5)
   .attr("fill", "transparent")
   .attr("d", path)
@@ -444,7 +431,7 @@ svg.selectAll("path.rail")
     .join("circle")
     .attr("r", function (d) { ; return sizeScale(d.NumberofAcres)})
     .attr("opacity", 1)
-    .attr("fill", "#7fb47d")
+    .attr("fill", "green")
     .attr("transform", d=> {
         // use our projection to go from lat/long => x/y
         const coords = projection([d.Longitude, d.Latitude])
@@ -462,6 +449,7 @@ svg.selectAll("path.rail")
 }
 mesaInit()
 
+//Using toggleBikPath function to show geographic data when clicked
 function toggleBikePath() {
   document.getElementById('mesa').innerHTML = ""
   document.getElementById('dc').innerHTML = ""

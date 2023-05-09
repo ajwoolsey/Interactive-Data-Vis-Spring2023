@@ -14,10 +14,9 @@
   </head>
   <body>
     <div class="headerwrapper">
-      <div class="png"></div>
       <div class='header'>
        <h1>Visualizing the Barriers to Park Access</h1>
-      <h4>Nature, considered the “great equalizer”<sup>1</sup> to some, should act as a public, universal good. 
+      <h4>Amanda Woolsey <br><br>Nature, considered the “great equalizer”<sup>1</sup> to some, should act as a public, universal good. 
       Living in proximity to a green space is associated with a wide range of mental and health benefits, 
       including a reduced risk of type II diabetes, heart disease, and lower levels of stress hormones <sup>2</sup>. 
       In urban spaces, parks and green spaces play an especially vital role in maintaining ecological homeostasis, 
@@ -47,14 +46,13 @@
          urban area, designated as Walk Score<sup>®</sup>, Bike Score<sup>®</sup>, and Transit Score<sup>®</sup>, respectively<sup>6</sup>. Data points for DC and Mesa are highlighted.
           Cities with higher walk, bike, and transit scores
           have more comprehensive people-oriented city infrastructure- including bike lanes, metro lines, and bus stations- than cities with lower scores. 
-          Overwhelmingly, there is a positive correlation between walkability, bikeability, transit access, and park equity, suggesting a relationship between 
-          people-oriented city infrastructure and park equity in the United States. </h4>
-      <div class= 'icon'></div>
+          The scatterplots below show that there is a positive correlation between metrics of people-oriented city design- 
+          walkability, bikeability, transit acccess- and park access in urban spaces. </h4>
      </div>
     
   </div>
   <div class="scatter">
-    <!--scatterwrapper divsto have all three scatterplots next to each other-->
+    <!--scatterwrapper div to have all three scatterplots next to each other-->
     <div class="scatterwrapper">
       <div id= 'walkscore'></div>
       <div id= 'transitscore'></div>
@@ -66,7 +64,7 @@
     Maps
     <h4>The below maps show the geographic proximity of people-oriented city infrastructure- bike lanes, metro lines, and bus stations- 
       to parks and urban green spaces in Mesa, AZ and Washington, DC. Geographic data for DC bus routes, bike lanes, 
-      metro routes, and green spaces were sourced from Open Data DC<sup>7,8,9,10</sup>
+      metro routes, and green spaces were sourced from Open Data DC<sup>7,8,9,10</sup>.
       Geographic data for Mesa light rail route and bus stop locations were sourced from Valley Metro Open Data<sup>11,12</sup>, bike lane data from
       City of Mesa ArcGIS Online<sup>13</sup>, and park data from City of Mesa Park Finder<sup>14</sup>. With regards to public transit, DC's 
       urban infrastructure is far more people-oriented than Mesa's, with a rapid rail transit system and a comprehensive network of public bus stations
@@ -74,6 +72,7 @@
       <br>
       Please select the below checkboxes to explore the geographic relationship between transit infrastructure and access to green space. </h4>
   </div>
+  <!--legend for map with checkboxes-->
   <div class="checklegend">
     <input type="checkbox" id="bikepath" name="bikepath" value="BikePath" onchange="toggleBikePath()" checked>
     <label for="bikepath"> Bike Path</label>
@@ -96,6 +95,7 @@
           </div>
         </div>
       </div>
+      <!--div class for map notes-->
   <div class= 'note'>
       <sup>*</sup> City of Mesa GIS did not have a publicly available geographic shp file for green spaces, so the coordinates of each park and acreage 
       had to be used instead. <br>

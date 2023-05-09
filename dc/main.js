@@ -1,4 +1,5 @@
-/* CONSTANTS AND GLOBALS- have to make unique for dc map */
+/* CONSTANTS AND GLOBALS- have to make unique for dc map versus mesa map */
+//Did DC map in sepaarate file to avoid getting confused with the promise loads
 function dcInit() {
 
 const dcwidth = window.innerWidth * 0.45,
@@ -16,7 +17,7 @@ Promise.all([
     d3.json("../data/DCNational_Parks.json"),
     d3.csv("../data/Metro_Bus_Stops.csv", d3.autoType),
 ]).then(([BikeLanes, MetroLines, DCNationalParks, MetroBus]) => {
-console.log(MetroLines)
+
   // create an svg element for dc map
   dcsvg = d3
     .select("#dc")
@@ -40,26 +41,8 @@ console.log(MetroLines)
       dcheight - dcmargin.top - dcmargin.bottom
     ], BikeLanes);
 
-  // DEFINE PATH FUNCTION
+  // DEFINE PATH FUNCTION, has to be unique path otherwise get an error//
   const dcpath = d3.geoPath(dcprojection)
-
-  //variable for tooltip
-//   var tooltip = d3.select("body")
-//   .append("div")
-//   .style("position", "absolute")
-//   .style("z-index", "10")
-//   .style("visibility", "hidden")
-//   .text("a simple tooltip");
-  // draw base layer path - Mesa county
-// svg.selectAll("path.counties")
-//     .data(geojson.features)
-//     .join("path")
-//     .attr("class", 'counties')
-//     .attr("stroke", "black")
-//     .attr("fill", "transparent")
-//     .attr("d", path)
-
-//Creating an array for color coding metro lines
 
 
 //draw path for bike lanes- "features" from console.log array
@@ -69,7 +52,7 @@ if (showBikePath) {
     .join("path")
     .attr("class", 'lanes')
     .attr('stroke-width', 1.5)
-    .attr("stroke", "#d487a2")
+    .attr("stroke", "#e75480")
     .attr("fill", "transparent")
     .attr("d", dcpath)
 }
@@ -79,20 +62,20 @@ if (showLightRail) {
     .data(MetroLines.geometries)
     .join("path")
     .attr("class", 'lines')
-    //seeing how data organizes metro lines using i as index
     .attr("stroke", 'white')
+    .attr("opacity", 0.6)
     .attr("fill", "transparent")
     .attr('stroke-width', 2)
     .attr("d", dcpath);
 }
 
-// Draw circle for each DC bus station (want hover function)
+// Draw circle for each DC bus station
 if(showBusStop) {
 dcsvg.selectAll("circle.MetroBus")
     .data(MetroBus)
     .join("circle")
     .attr("r", 1)
-    .attr("fill", "#eed467")
+    .attr("fill", "yellow")
     .attr("transform", d=> {
         // use our projection to go from lat/long => x/y
         const coords = dcprojection([d.BSTP_LON, d.BSTP_LAT])
@@ -104,49 +87,18 @@ dcsvg.selectAll("circle.MetroBus")
     })
   }
 
+  //Showing dc parks
   if(showParks) {
     dcsvg.selectAll("path.parks")
     .data(DCNationalParks.features)
     .join("path")
     .attr("class", 'parks')
-    .attr("stroke", "#7fb47d")
-    .attr("opacity", .8)
+    .attr("stroke", "green")
+    .attr("opacity", .9)
     .attr('stroke-width', 1.75)
     .attr("fill", "transparent")
     .attr("d", dcpath);
   }
-    
-
-    //creating sizeScale for UGS
-//     const sizeScale= d3.scaleSqrt()
-//     //
-//     .domain([d3.min(MesaParks.map(d => d.NumberofAcres)), d3.max(MesaParks.map(d => d.NumberofAcres))])
-//     //smallest to largest dot radius
-//     .range([1, 15])
-
-// //Draw TREE/icon for each park, size scale for size of park
-//     svg.selectAll("circle.MesaParks_Locations_And_Amenities")
-//     .data(MesaParks)
-//     .join("circle")
-//     .attr("r", function (d) { console.log(d); return sizeScale(d.NumberofAcres)})
-//     .attr("opacity", 1)
-//     .attr("fill", "#008000")
-//     .attr("transform", d=> {
-//         // use our projection to go from lat/long => x/y
-//         const coords = projection([d.Longitude, d.Latitude])
-//         console.log(coords)
-//         //can't read coords if coords is null, have to change to coords && coords[0]
-//         if (coords && coords[0] && coords[1]) {
-//           return `translate(${coords[0]}, ${coords[1]})`}
-
-     
-//   })
-  //tooltip for hover function for parks
-//   .on("mouseover", function(d){
-//     console.log(d)
-//     return tooltip.style("visibility", "visible").text("hello");})
-// 	.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-// 	.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 })
 }
 dcInit()
