@@ -3,15 +3,26 @@ const width = window.innerWidth * 0.9,
   height = window.innerHeight * 0.7,
   margin = { top: 20, bottom: 50, left: 60, right: 40 };
 
+legendsvg = d3
+  .select('#legend')
+  .append("svg")
+  .attr("width", 100)
+  .attr("height", 200);
+
+
 /**
  * LOAD DATA
  * Using a Promise.all([]), we can load more than one dataset at a time
  * */
 Promise.all([
   d3.json("../data/usState.json"),
+  d3.json("../data/tl_2019_us_cbsa.json"),
   d3.csv("../data/usHeatExtremes.csv", d3.autoType),
-]).then(([geojson, heat]) => {
-  
+  d3.csv("../data/stateCapitals.csv", d3.autoType),
+  d3.csv("../data/windfarmusa.csv", d3.autoType),
+]).then(([geojson, transitline, heat, stateCapitals, windfarm]) => {
+
+console.log(transitline)
   // create an svg element in our main `d3-container` element
   svg = d3
     .select("#container")
@@ -36,9 +47,18 @@ Promise.all([
     .data(geojson.features)
     .join("path")
     .attr("class", 'states')
-    .attr("stroke", "black")
+    .attr("stroke", "white")
     .attr("fill", "transparent")
     .attr("d", path)
+  
+   const transit = svg.selectAll("path.lanes")
+  .data(transitline.features)
+  .join("path")
+  .attr("class", 'lanes')
+  .attr("stroke", '#e75480')
+  .attr('stroke-width', 1.5)
+  .attr("fill", "transparent")
+  .attr("d", path)
 
   // draw point for DC Apartment
   const DCApartment =  { latitude: 38.916810, longitude: -77.015480 };
@@ -59,38 +79,33 @@ Promise.all([
     .domain([d3.min(heat.map(d => d.Changein95percentDays)), d3.max(heat.map(d => d.Changein95percentDays))])
     //smallest to largest dot radius
     .range([1, 25])
-
-    svg.selectAll("circle.point")
-    .data(heat)
+   
+  svg.selectAll("circle.stateCapitals")
+    .data(stateCapitals)
     .join("circle")
-    .attr("r", function (d) { console.log(d); return sizeScale(d.Changein95percentDays)})
-    //function to make circles with data under 0 blue and the rest red
-    .attr("fill", function (d) { 
-      if (d.Changein95percentDays < 0) {
-        return "rgb(0,27,255,.25)"
-      } else {
-      return "rgb(255,0,0,.25)"}})
-      .attr("transform", d=> {
-      // use our projection to go from lat/long => x/y
-      const coords = projection([d.Long, d.Lat])
-      console.log(coords)
-      //console log shows that x=0 and y=1
-      if (coords[0] && coords[1]) {
-        return `translate(${coords[0]}, ${coords[1]})`}
+    .attr("r", 5)
+    .attr("fill", 'red')
+    .attr("transform", d=> {
+        // use our projection to go from lat/long => x/y
+        const coords = projection([d.longitude, d.latitude])
+        //console log shows that x=0 and y=1
+        if (coords[0] && coords[1]) {
+          return `translate(${coords[0]}, ${coords[1]})`}
+        })
 
-    // svg.selectAll("circle.point")
-    // .data(windfarm)
-    // .join("circle")
-    // .attr("r", 5)
-    // .attr("fill", "lightsalmon")
-    // .attr("transform", d=> {
-    //   // use our projection to go from lat/long => x/y
-    //   // ref: https://github.com/d3/d3-geo#_projection
-    //   const coords = projection([d.Longitude, d.Latitude])
-    //   console.log(coords)
-    //   //console log shows that x=0 and y=1
-    //   if (coords[0] && coords[1]) {
-    //     return `translate(${coords[0]}, ${coords[1]})`}
+// if(showstateCapitals)   {
+          svg.selectAll("circle.windfarm")
+            .data(windfarm)
+            .join("circle")
+            .attr("r", 5)
+            .attr("fill", 'green')
+            .attr("transform", d=> {
+                // use our projection to go from lat/long => x/y
+                const coords = projection([d.Longitude, d.Latitude])
+                //console log shows that x=0 and y=1
+                if (coords[0] && coords[1]) {
+                  return `translate(${coords[0]}, ${coords[1]})`}
+        
+            })
+
     });
-  })
- 
